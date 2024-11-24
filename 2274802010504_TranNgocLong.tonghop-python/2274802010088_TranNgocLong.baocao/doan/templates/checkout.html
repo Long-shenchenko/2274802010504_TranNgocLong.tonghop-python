@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Toán</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='checkout_style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Thông Tin Thanh Toán</h2>
+        <form method="POST" action="{{ url_for('checkout') }}">
+            <!-- Thông tin cá nhân -->
+            <label for="name">Tên:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="phone">Điện thoại:</label>
+            <input type="text" id="phone" name="phone" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <!-- Thông tin địa chỉ -->
+            <label for="address">Địa chỉ:</label>
+            <input type="text" id="address" name="address" required>
+            
+            <label for="district">Quận/Huyện:</label>
+            <input type="text" id="district" name="district" required>
+            
+            <label for="ward">Xã/Phường:</label>
+            <input type="text" id="ward" name="ward" required>
+            
+            <label for="city">Tỉnh/Thành phố:</label>
+            <input type="text" id="city" name="city" required>
+            
+            <!-- Phương thức thanh toán -->
+            <label for="payment_method">Phương thức thanh toán:</label>
+            <select id="payment_method" name="payment_method" required>
+                <option value="credit_card">Thẻ tín dụng</option>
+                <option value="bank_transfer">Chuyển khoản</option>
+                <option value="e_wallet">Ví điện tử</option>
+            </select>
+            
+            <!-- Mã giảm giá -->
+            <label for="coupon">Mã giảm giá:</label>
+            <input type="text" id="coupon" name="coupon" placeholder="Nhập mã giảm giá (nếu có)">
+            
+            <!-- Ghi chú -->
+            <label for="notes">Ghi chú:</label>
+            <textarea id="notes" name="notes" placeholder="Thêm ghi chú cho đơn hàng"></textarea>
+            
+            <!-- Thời gian giao hàng -->
+            <label for="delivery_time">Thời gian giao hàng mong muốn:</label>
+            <input type="text" id="delivery_time" name="delivery_time" placeholder="VD: Sáng, Chiều, Tối">
+            
+            <!-- Tùy chọn lưu thông tin -->
+            <label>
+                <input type="checkbox" name="save_info"> Lưu thông tin cho lần mua tiếp theo
+            </label>
+            
+            <!-- Chi tiết đơn hàng -->
+            <div class="order-summary">
+                <h3>Chi tiết đơn hàng</h3>
+                <ul>
+                    <li>Sản phẩm A - 1,000,000đ</li>
+                    <li>Sản phẩm B - 500,000đ</li>
+                    <li>Phí vận chuyển: 30,000đ</li>
+                    <li><strong>Tổng cộng: 1,530,000đ</strong></li>
+                </ul>
+            </div>
+            
+            <!-- Nút xác nhận -->
+            <button type="submit">Xác nhận thanh toán</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ Hàng</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='cart_style.css') }}">
+    <script>
+        function calculateTotal() {
+            let total = 0;
+            const cartItems = document.querySelectorAll('.cart-item');
+
+            cartItems.forEach(item => {
+                const priceText = item.querySelector('.item-price').innerText.replace(' VNĐ', '').replace(/\./g, '').trim();
+                const price = parseFloat(priceText);
+                const quantity = parseInt(item.querySelector('.quantity-input').value);
+                const itemTotal = price * quantity;
+                item.querySelector('.item-total').innerText = itemTotal.toLocaleString('vi-VN') + ' VNĐ';
+                total += itemTotal;
+            });
+
+            document.getElementById('total-amount').innerText = total.toLocaleString('vi-VN') + ' VNĐ';
+        }
+
+        function confirmDelete() {
+            return confirm("Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?");
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Giỏ Hàng</h2>
+        <form method="POST" onsubmit="calculateTotal()">
+            <div class="cart-items">
+                {% for item in cart %}
+                <div class="cart-item">
+                    <h3>{{ item.name }}</h3> <!-- Hiển thị tên sản phẩm -->
+                    <span class="item-price">Giá: {{ item.price | number_format(0, ',', '.') }} VNĐ</span>
+                    <input type="number" class="quantity-input" name="quantity_{{ item.id }}" value="{{ item.get('quantity', 1) }}" min="1" onchange="calculateTotal()" />
+                    <span class="item-total">{{ (item.price * item.get('quantity', 1)) | number_format(0, ',', '.') }} VNĐ</span>
+                    <a href="{{ url_for('remove_from_cart', product_id=item.id) }}" class="remove-item" onclick="return confirmDelete();">Xóa</a>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="total-container">
+                Tổng cộng: <span id="total-amount">{{ total | number_format(0, ',', '.') }} VNĐ</span>
+            </div>
+            <div class="button-container">
+                <button type="submit" onclick="calculateTotal()">Cập nhật giỏ hàng</button>
+                <a href="{{ url_for('checkout') }}" class="back-link">Thanh toán</a>
+            </div>
+        </form>
+        <a href="/" class="back-link">Quay lại trang sản phẩm</a>
+    </div>
+</body>
+</html>

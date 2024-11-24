@@ -1,0 +1,126 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e9ecef;
+    color: #343a40;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #28a745;
+    margin-bottom: 20px;
+}
+
+.cart-items {
+    margin-top: 20px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 2px solid #f1f1f1;
+    transition: background-color 0.2s;
+}
+
+.cart-item:hover {
+    background-color: #f8f9fa;
+}
+
+.cart-item h3 {
+    margin: 0;
+    font-size: 1.3em;
+    color: #495057;
+}
+
+.item-price, .item-total {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.quantity-input {
+    width: 70px;
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+.remove-item {
+    color: #dc3545;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.remove-item:hover {
+    text-decoration: underline;
+}
+
+.total-container {
+    margin-top: 20px;
+    font-size: 1.6em;
+    text-align: right;
+    font-weight: bold;
+}
+
+.button-container {
+    text-align: center; /* Căn giữa cho nút */
+    margin-top: 20px; /* Khoảng cách trên nút */
+}
+
+.button-container button {
+    background-color: #28a745; /* Màu nền cho nút cập nhật */
+    color: white; /* Màu chữ */
+    padding: 12px 20px; /* Khoảng cách bên trong nút */
+    border: none; /* Không có viền */
+    border-radius: 5px; /* Bo góc */
+    cursor: pointer; /* Con trỏ chuột khi hover */
+    transition: background-color 0.3s, transform 0.2s; /* Hiệu ứng chuyển đổi */
+    font-size: 1em; /* Kích thước chữ */
+}
+
+.button-container button:hover {
+    background-color: #218838; /* Màu nền khi hover */
+    transform: translateY(-2px); /* Hiệu ứng nhấc lên khi hover */
+}
+
+.button-container a {
+    display: inline-block; /* Hiển thị dưới dạng khối */
+    background-color: #007bff; /* Màu nền cho nút thanh toán */
+    color: white; /* Màu chữ */
+    padding: 12px 20px; /* Khoảng cách bên trong nút */
+    border-radius: 5px; /* Bo góc */
+    text-decoration: none; /* Xóa gạch chân */
+    font-size: 1em; /* Kích thước chữ */
+    margin-left: 10px; /* Khoảng cách bên trái giữa hai nút */
+    transition: background-color 0.3s, transform 0.2s; /* Hiệu ứng chuyển đổi */
+}
+
+.button-container a:hover {
+    background-color: #0056b3; /* Màu nền khi hover */
+    transform: translateY(-2px); /* Hiệu ứng nhấc lên khi hover */
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    text-align: center;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}

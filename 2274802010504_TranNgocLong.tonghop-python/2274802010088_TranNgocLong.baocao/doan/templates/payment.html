@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chọn Phương Thức Thanh Toán</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='checkout_style.css') }}">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa; /* Màu nền nhẹ nhàng */
+            color: #343a40; /* Màu chữ tối */
+        }
+
+        .container {
+            max-width: 800px; /* Chiều rộng tối đa */
+            margin: auto; /* Căn giữa */
+            padding: 20px;
+            background: white; /* Nền trắng */
+            border-radius: 10px; /* Bo góc */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+        }
+
+        h2, h3 {
+            text-align: center; /* Căn giữa tiêu đề */
+            color: #28a745; /* Màu xanh lá cây cho tiêu đề */
+        }
+
+        .cart-items {
+            margin: 20px 0;
+        }
+
+        .cart-item {
+            border-bottom: 1px solid #ced4da; /* Viền dưới */
+            padding: 10px 0; /* Khoảng cách trên/dưới */
+        }
+
+        .item-price, .item-quantity, .item-total {
+            display: block; /* Hiển thị dưới dạng khối */
+        }
+
+        .total-container {
+            font-weight: bold; /* Chữ đậm cho tổng tiền */
+            text-align: right; /* Căn phải */
+            margin-top: 20px; /* Khoảng cách trên tổng tiền */
+        }
+
+        .payment-methods {
+            margin-top: 20px; /* Khoảng cách trên phương thức thanh toán */
+        }
+
+        .payment-option {
+            background-color: #f8f9fa; /* Nền nhẹ cho các lựa chọn */
+            border: 1px solid #ced4da; /* Viền xám */
+            border-radius: 5px; /* Bo góc */
+            padding: 15px; /* Khoảng cách bên trong */
+            margin: 10px 0; /* Khoảng cách giữa các lựa chọn */
+            cursor: pointer; /* Con trỏ chuột khi hover */
+            transition: background-color 0.2s; /* Hiệu ứng chuyển đổi */
+        }
+
+        .payment-option:hover {
+            background-color: #e2e6ea; /* Màu nền khi hover */
+        }
+
+        .selected {
+            background-color: #28a745; /* Màu nền cho phần đã chọn */
+            color: white; /* Màu chữ trắng */
+        }
+
+        .selected h4 {
+            color: white; /* Đảm bảo tiêu đề cũng trắng */
+        }
+
+        .bank-info {
+            background-color: rgba(255, 255, 255, 0.9); /* Nền trắng trong suốt cho thông tin ngân hàng */
+            color: #343a40; /* Màu chữ tối cho thông tin ngân hàng */
+            border-radius: 5px; /* Bo góc */
+            padding: 10px; /* Khoảng cách bên trong */
+            margin-top: 10px; /* Khoảng cách trên */
+        }
+
+        .button-container {
+            display: flex; /* Sử dụng flexbox để căn giữa */
+            justify-content: space-between; /* Tách ra hai bên */
+            margin-top: 20px; /* Khoảng cách trên nút */
+        }
+
+        button {
+            background-color: #28a745; /* Màu nền cho nút */
+            color: white; /* Màu chữ trắng */
+            padding: 12px 20px; /* Khoảng cách bên trong nút */
+            border: none; /* Không có viền */
+            border-radius: 5px; /* Bo góc */
+            cursor: pointer; /* Con trỏ chuột khi hover */
+            transition: background-color 0.3s, transform 0.2s; /* Hiệu ứng chuyển đổi */
+            font-size: 1em; /* Kích thước chữ */
+            width: 48%; /* Chiếm 48% chiều rộng */
+        }
+
+        button:hover {
+            background-color: #218838; /* Màu nền khi hover */
+            transform: translateY(-2px); /* Hiệu ứng nhấc lên khi hover */
+        }
+
+        /* Popup Modal */
+        .modal {
+            display: none; /* Ẩn ban đầu */
+            position: fixed; /* Vị trí cố định */
+            z-index: 1; /* Đặt lên trên cùng */
+            left: 0;
+            top: 0;
+            width: 100%; /* Chiếm toàn bộ chiều rộng */
+            height: 100%; /* Chiếm toàn bộ chiều cao */
+            overflow: auto; /* Cuộn nếu cần */
+            background-color: rgba(0, 0, 0, 0.5); /* Nền tối với độ trong suốt */
+        }
+
+        .modal-content {
+            background-color: #fefefe; /* Nền trắng */
+            margin: 15% auto; /* Căn giữa */
+            padding: 20px; /* Khoảng cách bên trong */
+            border: 1px solid #888; /* Viền xám */
+            width: 80%; /* Chiếm 80% chiều rộng */
+            border-radius: 10px; /* Bo góc */
+        }
+
+        .close {
+            color: #aaa; /* Màu xám cho nút đóng */
+            float: right; /* Căn phải */
+            font-size: 28px; /* Kích thước chữ */
+            font-weight: bold; /* Chữ đậm */
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black; /* Màu đen khi hover hoặc focus */
+            text-decoration: none; /* Không gạch chân */
+            cursor: pointer; /* Con trỏ chuột khi hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Thông Tin Giỏ Hàng</h2>
+        {% if cart %}
+            <div class="cart-items">
+                {% for item in cart %}
+                <div class="cart-item">
+                    <h3>{{ item.name }}</h3>
+                    <span class="item-price">Giá: {{ item.price | number_format(0, ',', '.') }} VNĐ</span>
+                    <span class="item-quantity">Số lượng: {{ item.quantity }}</span>
+                    <span class="item-total">Tổng: {{ (item.price * item.quantity) | number_format(0, ',', '.') }} VNĐ</span>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="total-container">
+                Tổng cộng: <span id="total-amount">{{ total | number_format(0, ',', '.') }} VNĐ</span>
+            </div>
+        {% else %}
+            <p>Giỏ hàng của bạn hiện đang trống.</p>
+        {% endif %}
+
+        <h3>Chọn Phương Thức Thanh Toán</h3>
+        <div class="payment-methods">
+            <div class="payment-option" onclick="selectPaymentMethod(this)">
+                <h4>Thanh toán chuyển khoản</h4>
+                <div class="bank-info" style="display: none;">
+                    <p><strong>Chủ tài khoản:</strong> Trần Ngọc Long</p>
+                    <p><strong>Số tài khoản:</strong> 21565507</p>
+                    <p><strong>Ngân hàng:</strong> ABC</p>
+                    <p><strong>Địa chỉ:</strong> UBND xã Gia Tân 3, 10T Ấp Phúc Nhạc, Gia Tân 3, Thống Nhất, Đồng Nai</p>
+                </div>
+            </div>
+            <div class="payment-option" onclick="selectPaymentMethod(this)">
+                <h4>Thanh toán khi nhận hàng (COD)</h4>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <button onclick="window.history.back()">Quay lại</button>
+            <button onclick="confirmOrder()">Xác nhận</button>
+        </div>
+    </div>
+
+    <!-- Popup Modal -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Đặt hàng thành công!</h2>
+            <p>Cảm ơn bạn đã đặt hàng. Chúng tôi sẽ liên hệ với bạn sớm nhất có thể.</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleBankInfo(element) {
+            const bankInfo = element.querySelector('.bank-info');
+            bankInfo.style.display = bankInfo.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function selectPaymentMethod(element) {
+            const options = document.querySelectorAll('.payment-option');
+            options.forEach(option => {
+                option.classList.remove('selected'); // Xóa lớp đã chọn cho tất cả
+            });
+            element.classList.add('selected'); // Thêm lớp đã chọn cho phần đã chọn
+            toggleBankInfo(element); // Hiển thị thông tin ngân hàng nếu phương thức chuyển khoản được chọn
+        }
+
+        function confirmOrder() {
+            // Hiện modal thông báo đặt hàng thành công
+            document.getElementById('orderModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('orderModal').style.display = 'none';
+            // Chuyển hướng về trang chủ sau 10 giây
+            setTimeout(() => {
+                window.location.href = "{{ url_for('index') }}";
+            }, 2000); // Thay đổi thời gian nếu cần
+        }
+
+        // Đóng modal khi nhấn bên ngoài
+        window.onclick = function(event) {
+            const modal = document.getElementById('orderModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>

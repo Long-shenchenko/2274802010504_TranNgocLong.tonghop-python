@@ -1,0 +1,79 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e9ecef; /* Màu nền nhẹ nhàng */
+    color: #343a40; /* Màu chữ tối */
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px; /* Chiều rộng tối đa */
+    margin: auto; /* Căn giữa */
+    padding: 20px;
+    background: white; /* Nền trắng */
+    border-radius: 10px; /* Bo góc */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+}
+
+h2 {
+    text-align: center; /* Căn giữa tiêu đề */
+    color: #28a745; /* Màu xanh lá cây cho tiêu đề */
+    margin-bottom: 20px; /* Khoảng cách dưới tiêu đề */
+}
+
+label {
+    display: block; /* Hiển thị nhãn dưới dạng khối */
+    margin-top: 15px; /* Khoảng cách trên nhãn */
+    font-weight: bold; /* Chữ đậm */
+}
+
+input[type="text"],
+input[type="email"] {
+    width: 100%; /* Chiều rộng đầy đủ */
+    padding: 10px; /* Khoảng cách bên trong */
+    margin-top: 5px; /* Khoảng cách trên input */
+    border: 1px solid #ced4da; /* Viền xám */
+    border-radius: 5px; /* Bo góc */
+}
+
+button {
+    background-color: #28a745; /* Màu nền cho nút */
+    color: white; /* Màu chữ trắng */
+    padding: 12px 20px; /* Khoảng cách bên trong nút */
+    border: none; /* Không có viền */
+    border-radius: 5px; /* Bo góc */
+    cursor: pointer; /* Con trỏ chuột khi hover */
+    transition: background-color 0.3s, transform 0.2s; /* Hiệu ứng chuyển đổi */
+    font-size: 1em; /* Kích thước chữ */
+    margin-top: 20px; /* Khoảng cách trên nút */
+    width: 100%; /* Chiều rộng đầy đủ */
+}
+
+button:hover {
+    background-color: #218838; /* Màu nền khi hover */
+    transform: translateY(-2px); /* Hiệu ứng nhấc lên khi hover */
+}
+.payment-methods {
+    margin-top: 20px; /* Khoảng cách trên phương thức thanh toán */
+}
+
+.payment-option {
+    background-color: #f8f9fa; /* Nền nhẹ cho các lựa chọn */
+    border: 1px solid #ced4da; /* Viền xám */
+    border-radius: 5px; /* Bo góc */
+    padding: 15px; /* Khoảng cách bên trong */
+    margin: 10px 0; /* Khoảng cách giữa các lựa chọn */
+    cursor: pointer; /* Con trỏ chuột khi hover */
+    transition: background-color 0.2s; /* Hiệu ứng chuyển đổi */
+}
+
+.payment-option:hover {
+    background-color: #e2e6ea; /* Màu nền khi hover */
+}
+
+.bank-info {
+    margin-top: 10px; /* Khoảng cách trên thông tin ngân hàng */
+    padding: 10px;
+    background-color: #e9ecef; /* Nền nhẹ cho thông tin ngân hàng */
+    border-radius: 5px; /* Bo góc */
+}
